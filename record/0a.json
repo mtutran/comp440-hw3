@@ -1,0 +1,60 @@
+{
+  "step": "0a",
+  "title": "Get your copy running",
+  "session_id": null,
+  "conversations": [
+    "0404a15c-bb59-4fca-aa47-0df04ccc1594"
+  ],
+  "complete": true,
+  "checkpoints": [
+    {
+      "text": "Your .env is copied from .env.example and filled in",
+      "reached": true
+    },
+    {
+      "text": "Your name is after Name: at the top of WRITEUP.md",
+      "reached": true
+    },
+    {
+      "text": "This step's Claude session is started",
+      "reached": true
+    },
+    {
+      "text": "The set-up check says everything is ready",
+      "reached": true
+    }
+  ],
+  "answers": [
+    {
+      "question": "Name",
+      "answer": "Tu Tran",
+      "written_by": "the student"
+    }
+  ],
+  "record": [
+    {
+      "kind": "mark",
+      "reached": [
+        "Your .env is copied from .env.example and filled in",
+        "Your name is after Name: at the top of WRITEUP.md",
+        "This step's Claude session is started",
+        "The set-up check says everything is ready"
+      ],
+      "time": "2026-11-19T10:38:30-06:00"
+    }
+  ],
+  "told_the_page": [
+    {
+      "time": "2026-11-19T10:44:01-06:00",
+      "kind": "checkpoint",
+      "n": 3,
+      "text": "This step's Claude session is started"
+    },
+    {
+      "time": "2026-11-19T10:44:01-06:00",
+      "kind": "status",
+      "text": "Waiting for .env and your name in WRITEUP.md"
+    }
+  ],
+  "turns": 1
+}

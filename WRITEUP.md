@@ -1,6 +1,6 @@
 # COMP 440 HW3 write-up
 
-Name:
+Name: Tu Tran
 
 Type each answer after the `>` under its question. An answer can run over several lines, but a blank line
 ends it: to start a new paragraph, put a line with just `>` between the two. In a table, fill every cell
@@ -28,31 +28,37 @@ There is nothing to write for this step except your name, after `Name:` at the t
 
 What verdict did the model give (*supported*, *refuted* or *doesn't say*), and what reason did it give? Quote the lines of the output that show them.
 
->
+> The verdict the model gave is doesn't say, and the reason it gave is it can't confirm from memory who composed "Persian Surgery Dervishes" or what that composer's birth date is on English Wikipedia.
+
+> The lines of the output that show them are:
+"Verdict: doesn't say
+Explanation: I can't confirm from memory who composed "Persian Surgery Dervishes" or what that composer's birth date is on English Wikipedia, so I can't determine whether the claim is supported or refuted."
 
 ## 0c. Give it one search
 
 Which Wikipedia page did it read? Quote the line of the output that shows it.
 
->
+> It read the Wikipedia page titled "Persian Surgery Dervishes".
+
+> The line of the output that shows it is "read(title='Persian Surgery Dervishes')".
 
 Did that page settle the claim correctly? If not, why do you think the search led there?
 
->
+> That page did not settle the claim correctly. Because the search only gave it information on the composer but not his birth date.
 
 ## 0d. Run the agent and read its trace
 
 In one or two sentences, how did the agent get from the claim to its verdict? Point to the trace entries by their numbers.
 
->
+> The agent first searched for the album composer (1), then looked up his birth date in Wikidata (2) and on his Wikipedia page (3). Both confirmed his birthdate is June 24th 1935, so it answered "supported" (4).
 
 Which lookup would you have done differently, and how? If none, which one surprised you?
 
->
+> I would have skipped lookup (3), Wikidata (2) had already returned the birth date.
 
 Describe Wikidata briefly. Why may it be important to this task?
 
->
+> Wikidata is a structured knowledge base that stores facts about entities as machine-readable properties, so computers can easily reuse and query them. It may be important for this task because the agent can fetch a single fact like a date of birth directly instead of searching for it in article text.
 
 # Part 1: How the agent works
 
