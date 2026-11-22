@@ -43,4 +43,53 @@ def run_agent(claim, client=None, max_steps=MAX_STEPS, lookup=run_tool):
     # also pay attention to whether the loop has reached its limit: a claim that runs out of
     # lookups cannot be decided.
     # ---- your loop goes below this line (step 1a) ----
-    raise NotImplementedError("The loop is not written yet: see step 1a.")
+
+    # history = [claim]
+    #   (this is `messages`, set up above with the claim in it)
+
+    # num_lookups = 0
+    #   (this is `steps`, set up above as 0)
+
+    # Repeat:
+    while True:
+
+        # step = call model with history
+        reply = talk.ask()
+
+        # append step to history
+        #   (talk.ask() already adds the reply to the history)
+
+        # If step is an answer:
+        if reply.answer is not None:
+            # return the answer
+            return talk.accept(reply.answer, steps)
+
+        # If num_lookups == 12:
+        if steps == max_steps:
+            # return 'undecided'
+            return talk.stop(RAN_OUT, steps)
+
+        # results = []
+        #   (the parts keep this list: each talk.give() adds to it, and
+        #    talk.send_results() sends it and starts it empty again)
+
+        # For each lookup request in step (in order):
+        for call in reply.lookups:
+
+            # If num_lookups == 12:
+            if steps == max_steps:
+                # result = "undecided"
+                result = "undecided"
+
+            # Else:
+            else:
+                # num_lookups += 1
+                steps += 1
+                # result = perform lookup
+                result = talk.run(call)
+
+            # append (request, result) to results
+            talk.give(call, result)
+
+        # append results to historys
+        talk.send_results()

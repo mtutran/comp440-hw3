@@ -3,47 +3,167 @@
   "title": "Design the loop",
   "session_id": null,
   "conversations": [
-    "0404a15c-bb59-4fca-aa47-0df04ccc1594"
+    "0404a15c-bb59-4fca-aa47-0df04ccc1594",
+    "b71d72ec-7430-46ca-94eb-3fc6d7922a8a"
   ],
-  "complete": false,
+  "complete": true,
   "checkpoints": [
     {
       "text": "Your outline is in WRITEUP.md",
-      "reached": false
+      "reached": true
     },
     {
       "text": "Your loop in my_loop.py passes every rule of the check",
-      "reached": false
+      "reached": true
     },
     {
       "text": "Your answers are in WRITEUP.md",
-      "reached": false
+      "reached": true
+    },
+    {
+      "text": "Your answers in WRITEUP.md",
+      "reached": true
     }
   ],
   "answers": [
     {
       "question": "Write your outline of the loop in the code block: what it remembers, what it repeats, and every way it stops.",
-      "answer": "",
-      "written_by": null
+      "answer": "history = [claim]\nnum_lookups = 0\n\nRepeat:\n    step = call model with history\n    append step to history\n\n    If step is an answer:\n        return the answer\n\n    If num_lookups == 12:\n        return 'undecided'\n\n    results = []\n    For each lookup request in step (in order):\n        If num_lookups == 12:\n            result = \"undecided\"\n        Else:\n            num_lookups += 1\n            result = perform lookup\n        append (request, result) to results\n    \n    append results to history",
+      "written_by": "the student"
     },
     {
       "question": "List each thing your loop remembers from one turn to the next, and say what would go wrong without it.",
-      "answer": "",
-      "written_by": null
+      "answer": "My loop remembers the message history because without it, each turn the model would only see only the claim. Thus, it would ask for the same lookups until it reached the limit.",
+      "written_by": "the student"
+    },
+    {
+      "question": "Answer",
+      "answer": "My loop remembers the lookup count because without it, the model that can not give an answer would run forever.",
+      "written_by": "the student"
     },
     {
       "question": "Now open `reference_loop.py` and compare it with your loop. Describe one difference in implementation and the resulting effects on agent behavior.",
-      "answer": "",
-      "written_by": null
+      "answer": "One difference in implementation is where the limit is checked. The reference checks limit once per turn then runs every lookup in that reply. Thus, it can go over the limit by up to one less than the number of lookups in a reply. My loop checks limit before each lookup. Thus, once 12 lookups have run, every remaining request in that turn gets the result undecided. As a result, my agent never makes more than 12 lookups, while the reference can read more than 12.",
+      "written_by": "the student"
     }
   ],
-  "record": [],
+  "record": [
+    {
+      "kind": "mark",
+      "reached": [
+        "Your outline is in WRITEUP.md"
+      ],
+      "time": "2026-11-19T17:22:06-06:00"
+    },
+    {
+      "kind": "ran",
+      "text": "Show the 1a section of the write-up",
+      "status": "ok",
+      "file": null,
+      "time": "2026-11-22T07:59:06-06:00"
+    },
+    {
+      "kind": "asked",
+      "text": "translate my outline into my_loop.py",
+      "time": "2026-11-22T07:59:20-06:00"
+    },
+    {
+      "kind": "ran",
+      "text": "Looked at loop_parts.py",
+      "status": "ok",
+      "file": null,
+      "time": "2026-11-22T07:59:21-06:00"
+    },
+    {
+      "kind": "ran",
+      "text": "Edited my_loop.py",
+      "status": "ok",
+      "file": null,
+      "time": "2026-11-22T07:59:33-06:00"
+    },
+    {
+      "kind": "asked",
+      "text": "run the check",
+      "time": "2026-11-22T08:00:19-06:00"
+    },
+    {
+      "kind": "ran",
+      "text": "Ran check_loop.py",
+      "status": "error",
+      "file": null,
+      "time": "2026-11-22T08:00:21-06:00"
+    },
+    {
+      "kind": "asked",
+      "text": "translate it again and run the check",
+      "time": "2026-11-22T08:03:32-06:00"
+    },
+    {
+      "kind": "ran",
+      "text": "Looked at my_loop.py",
+      "status": "ok",
+      "file": null,
+      "time": "2026-11-22T08:03:33-06:00"
+    },
+    {
+      "kind": "ran",
+      "text": "Edited my_loop.py",
+      "status": "ok",
+      "file": null,
+      "time": "2026-11-22T08:03:37-06:00"
+    },
+    {
+      "kind": "ran",
+      "text": "Edited my_loop.py",
+      "status": "ok",
+      "file": null,
+      "time": "2026-11-22T08:03:38-06:00"
+    },
+    {
+      "kind": "ran",
+      "text": "Ran check_loop.py",
+      "status": "ok",
+      "file": null,
+      "time": "2026-11-22T08:03:39-06:00"
+    },
+    {
+      "kind": "ran",
+      "text": "Listed files",
+      "status": "ok",
+      "file": null,
+      "reached": [
+        "Your loop in my_loop.py passes every rule of the check",
+        "Your answers are in WRITEUP.md"
+      ],
+      "time": "2026-11-22T08:03:41-06:00"
+    }
+  ],
   "told_the_page": [
     {
       "time": "2026-11-19T11:14:14-06:00",
       "kind": "status",
       "text": "Waiting for your outline in WRITEUP.md"
+    },
+    {
+      "time": "2026-11-22T07:59:09-06:00",
+      "kind": "status",
+      "text": "Outline is in WRITEUP.md; ready to translate it"
+    },
+    {
+      "time": "2026-11-22T07:59:34-06:00",
+      "kind": "status",
+      "text": "Translated your outline into my_loop.py"
+    },
+    {
+      "time": "2026-11-22T08:00:23-06:00",
+      "kind": "status",
+      "text": "Check run: rule 2 is NOT YET"
+    },
+    {
+      "time": "2026-11-22T08:03:41-06:00",
+      "kind": "status",
+      "text": "Every rule passes; next: the two questions in WRITEUP.md"
     }
   ],
-  "turns": 1
+  "turns": 5
 }

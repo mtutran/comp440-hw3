@@ -1,0 +1,5 @@
+{"tool": "search", "input": {"query": "Vic & Anthony's Steakhouse"}}
+{"tool": "read", "input": {"title": "Vic & Anthony's Steakhouse", "section": null}}
+{"tool": "search", "input": {"query": "California Club casino"}}
+{"tool": "read", "input": {"title": "California Club (casino)", "section": null}}
+{"tool": "read", "input": {"title": "Golden Nugget Las Vegas", "section": null}}

@@ -1,0 +1,99 @@
+{
+  "step": "1d",
+  "title": "Write the agent's instructions",
+  "session_id": null,
+  "conversations": [
+    "b71d72ec-7430-46ca-94eb-3fc6d7922a8a"
+  ],
+  "complete": true,
+  "checkpoints": [
+    {
+      "text": "Your own instructions are in instructions.md, and say: how to break a claim into pieces; when to use wikidata; when to stop; when to answer \"doesn't say\"",
+      "reached": true
+    },
+    {
+      "text": "The second run on your 12 development claims is saved",
+      "reached": true
+    },
+    {
+      "text": "Your answer is in WRITEUP.md",
+      "reached": true
+    }
+  ],
+  "answers": [
+    {
+      "question": "What changed in the agent's traces after you wrote your instructions? Give one claim as an example.",
+      "answer": "Before, the agent noticed that part of the claim wasn't stated but still counted it as true. After, it treated that part as a fact that needed checking and when it couldn't confirm it, it answered \"doesn't say\".",
+      "written_by": "the student"
+    },
+    {
+      "question": "Answer",
+      "answer": "For example, the claim \"The former leader of the school of Soviet and Russian humorists's youngest son is the head of Moscow Satyricon Theatre.\" Both runs used 6 lookups and read the Arkady Raikin and Konstantin Raikin articles. Before, the agent answered \"supported\" even though it noticed \"youngest son\" was \"not explicitly stated\". After, it treated \"youngest son\" as a fact that needed checking. Nothing contradicted it but nothing confirmed it either, so it answered \"doesn't say\" which matches the dataset's label.",
+      "written_by": "the student"
+    }
+  ],
+  "record": [
+    {
+      "kind": "ran",
+      "text": "Looked at a git diff",
+      "status": "ok",
+      "file": null,
+      "time": "2026-11-22T11:41:29-06:00"
+    },
+    {
+      "kind": "asked",
+      "text": "run the agent on your 12 development claims again",
+      "time": "2026-11-22T11:59:09-06:00"
+    },
+    {
+      "kind": "ran",
+      "text": "Looked at a git diff",
+      "status": "ok",
+      "file": null,
+      "time": "2026-11-22T11:59:11-06:00"
+    },
+    {
+      "kind": "ran",
+      "text": "Ran evaluate.py data/dev.jsonl --methods agent",
+      "status": "ok",
+      "file": null,
+      "reached": [
+        "Your own instructions are in instructions.md, and say: how to break a claim into pieces; when to use wikidata; when to stop; when to answer \"doesn't say\"",
+        "The second run on your 12 development claims is saved"
+      ],
+      "time": "2026-11-22T11:59:13-06:00"
+    },
+    {
+      "kind": "asked",
+      "text": "which claims changed?",
+      "reached": [
+        "Your answer is in WRITEUP.md"
+      ],
+      "time": "2026-11-22T12:02:57-06:00"
+    }
+  ],
+  "told_the_page": [
+    {
+      "time": "2026-11-22T11:41:29-06:00",
+      "kind": "status",
+      "text": "Waiting for your instructions in instructions.md"
+    },
+    {
+      "time": "2026-11-22T11:59:13-06:00",
+      "kind": "checkpoint",
+      "n": 1,
+      "text": "Your own instructions are in instructions.md, and say: how to break a claim into pieces; when to use wikidata; when to stop; when to answer \"doesn't say\""
+    },
+    {
+      "time": "2026-11-22T11:59:13-06:00",
+      "kind": "status",
+      "text": "Running the agent with your instructions"
+    },
+    {
+      "time": "2026-11-22T12:00:03-06:00",
+      "kind": "status",
+      "text": "Run saved; next: compare the two runs in Results"
+    }
+  ],
+  "turns": 3
+}

@@ -71,15 +71,40 @@ The Background and an example outline are under 1a on the homework page, and in 
 Write your outline of the loop in the code block: what it remembers, what it repeats, and every way it stops.
 
 ```
+history = [claim]
+num_lookups = 0
+
+Repeat:
+    step = call model with history
+    append step to history
+
+    If step is an answer:
+        return the answer
+
+    If num_lookups == 12:
+        return 'undecided'
+
+    results = []
+    For each lookup request in step (in order):
+        If num_lookups == 12:
+            result = "undecided"
+        Else:
+            num_lookups += 1
+            result = perform lookup
+        append (request, result) to results
+    
+    append results to history
 ```
 
 List each thing your loop remembers from one turn to the next, and say what would go wrong without it.
 
->
+> My loop remembers the message history because without it, each turn the model would only see only the claim. Thus, it would ask for the same lookups until it reached the limit.
+
+> My loop remembers the lookup count because without it, the model that can not give an answer would run forever.
 
 Now open `reference_loop.py` and compare it with your loop. Describe one difference in implementation and the resulting effects on agent behavior.
 
->
+> One difference in implementation is where the limit is checked. The reference checks limit once per turn then runs every lookup in that reply. Thus, it can go over the limit by up to one less than the number of lookups in a reply. My loop checks limit before each lookup. Thus, once 12 lookups have run, every remaining request in that turn gets the result undecided. As a result, my agent never makes more than 12 lookups, while the reference can read more than 12.
 
 ## 1b. Be the agent
 
@@ -89,11 +114,22 @@ List your lookups, in order. Ask Claude to paste every column but the last from 
 
 | # | Tool | What you asked for | Why you chose it |
 |---|---|---|---|
-| 1 | | | |
+| 1 | search | Vic & Anthony's Steakhouse | I want to search for information about where it is located. |
+| 2 | read | Vic & Anthony's Steakhouse | The first lookup suggests that it has a location in Golden Nugget Lake Charles, I want to check all of its locations. |
+| 3 | search | California Club casino | The second lookup showed it is inside three Golden Nugget casinos (Las Vegas, Atlantic City, Lake Charles). I want to find out which one the claim means. |
+| 4 | read | California Club (casino) | The third lookup showed the club was in Downtown but was cut off. I want to check that it was combined into the Golden Nugget. |
+| 5 | read | Golden Nugget Las Vegas | The fourth lookup confirmed they are combined. I want to check the casino's ownership. |
 
 What is your verdict on the claim, and which sentence or sentences from what you read is it based on?
 
->
+> My verdict on the claim is supported.
+
+> It is based on: 
+"Vic & Anthony's is an American steakhouse restaurant chain with locations in Downtown Houston, and inside the Golden Nugget Casinos in Las Vegas, Atlantic City and Lake Charles."
+
+"The California Club was combined into the Golden Nugget shortly after the purchase by Wynn."
+
+"The Golden Nugget Las Vegas is a luxury hotel and casino located in downtown Las Vegas, Nevada, United States, on the Fremont Street Experience. The property is owned and operated by Landry's, Inc."
 
 ## 1c. Watch the agent work
 
@@ -101,19 +137,21 @@ List the three traces you read closely. At least one should be a claim the agent
 
 | # | Claim (first few words) | Articles | Did it match the dataset's label? | Did it get there for a good reason? Why or why not |
 |---|---|---|---|---|
-| 1 | | | | |
-| 2 | | | | |
-| 3 | | | | |
+| 1 | Myles Kennedy and Robert Palmer, share… | Myles Kennedy, Robert Palmer (singer) | yes | Yes. It read both people's pages and checked their occupations on Wikidata. |
+| 2 | Scotland holds both this landmark… | Cowie Castle, Catterline, Todhead Lighthouse | yes | No. It confirmed Cowie Castle is in Scotland, but instead of trying to identify the landmarak, it ran random searches. Moreover, it still has lookups, but it just answered "doesn't say". |
+| 3 | This organism and the genus Ginseng… | Ginseng, Port McArthur Tidal Wetlands System, McArthur River (Northern Territory), McArthur River | no | No. The first lookup gave the name the organism and the second showed the genus Ginseng belongs to. It only needed to check that they are both plant genera, but it read and searched unnecessary things until it ran out of lookups. |
 
 Which trace did you find most interesting, and what did the agent do well or badly in it?
 
->
+> I found the third most interesting because the agent had what it needed early but still failed. Its first two lookups are good. From there it only need about two more lookups to check that both are plant genera. But instead it kept searching for descriptions or repeated a search for information it already had. At the end, it swas searching about irrelevant things until it ran out of lookups.
 
 ## 1d. Write the agent's instructions
 
 What changed in the agent's traces after you wrote your instructions? Give one claim as an example.
 
->
+> Before, the agent noticed that part of the claim wasn't stated but still counted it as true. After, it treated that part as a fact that needed checking and when it couldn't confirm it, it answered "doesn't say".
+
+> For example, the claim "The former leader of the school of Soviet and Russian humorists's youngest son is the head of Moscow Satyricon Theatre." Both runs used 6 lookups and read the Arkady Raikin and Konstantin Raikin articles. Before, the agent answered "supported" even though it noticed "youngest son" was "not explicitly stated". After, it treated "youngest son" as a fact that needed checking. Nothing contradicted it but nothing confirmed it either, so it answered "doesn't say" which matches the dataset's label.
 
 ## 1e. Start the full run, and predict
 
@@ -121,13 +159,13 @@ Predict the share of claims each version will get right (its verdict matches the
 
 | Version | 2 articles | 3 articles | 4 articles | Why you think so |
 |---|---|---|---|---|
-| No tools | | | | |
-| One search | | | | |
-| Agent | | | | |
+| No tools | 30 | 30 | 30 | I think in most cases it won't be able to recall the facts and will answer "doesn't say" and that doesn't depend on how many articles a claim needs. |
+| One search | 45 | 40 | 35 | I think one search may help it find the first article but maybe not the fact needed, so it mostly helps claims that need 2 articles. The more articles a claim needs, the less one search can cover, so it gets more similar to no tools. |
+| Agent | 50 | 75 | 50 | I think the agent can find all the articles in most cases, so it is the best of the three. But sometimes it wanders off and runs out of lookups which is worse claims that need more articles. I also based the numbers on the earlier 12 claims run. |
 
 How many lookups will the agent make per claim, on average? Why?
 
->
+> I would expect the agent to make around 6 lookups per claim. Each article usually needs one search and one read and. But sometimes it wanders off and uses all 12 lookups and sometimes it found something contradicted early.
 
 # Part 2: The agent against the baselines
 

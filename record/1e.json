@@ -1,0 +1,52 @@
+{
+  "step": "1e",
+  "title": "Start the full run, and predict",
+  "session_id": null,
+  "conversations": [
+    "b71d72ec-7430-46ca-94eb-3fc6d7922a8a"
+  ],
+  "complete": true,
+  "checkpoints": [
+    {
+      "text": "The full run has started",
+      "reached": true
+    },
+    {
+      "text": "Your predictions and answer are in WRITEUP.md",
+      "reached": true
+    }
+  ],
+  "answers": [
+    {
+      "question": "Predict the share of claims each version will get right (its verdict matches the dataset's label), as a percentage. A guess is fine; the reasons are what I grade.",
+      "answer": "No tools | 30 | 30 | 30 | I think in most cases it won't be able to recall the facts and will answer \"doesn't say\" and that doesn't depend on how many articles a claim needs.\nOne search | 45 | 40 | 35 | I think one search may help it find the first article but maybe not the fact needed, so it mostly helps claims that need 2 articles. The more articles a claim needs, the less one search can cover, so it gets more similar to no tools.\nAgent | 50 | 75 | 50 | I think the agent can find all the articles in most cases, so it is the best of the three. But sometimes it wanders off and runs out of lookups which is worse claims that need more articles. I also based the numbers on the earlier 12 claims run.",
+      "written_by": "the student"
+    },
+    {
+      "question": "How many lookups will the agent make per claim, on average? Why?",
+      "answer": "I would expect the agent to make around 6 lookups per claim. Each article usually needs one search and one read and. But sometimes it wanders off and uses all 12 lookups and sometimes it found something contradicted early.",
+      "written_by": "the student"
+    }
+  ],
+  "record": [
+    {
+      "kind": "ran",
+      "text": "Listed files",
+      "status": "ok",
+      "file": null,
+      "reached": [
+        "The full run has started",
+        "Your predictions and answer are in WRITEUP.md"
+      ],
+      "time": "2026-11-22T12:12:26-06:00"
+    }
+  ],
+  "told_the_page": [
+    {
+      "time": "2026-11-22T12:12:26-06:00",
+      "kind": "status",
+      "text": "Waiting for you to start the full run"
+    }
+  ],
+  "turns": 1
+}
