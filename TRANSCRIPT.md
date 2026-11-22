@@ -1358,3 +1358,155 @@ This step was done in the conversation under 1a, session `b71d72ec`, from the me
 # 1e. Start the full run, and predict
 
 This step was done in the conversation under 1a, session `b71d72ec`, from the message “Start step 1e.”
+
+# 2a. Compare accuracy
+
+<!-- transcript-session: a9358cc5-3fd9-4824-8f14-fc4d44675517 | 2026-11-22T18:56:39.815Z -->
+## Session `a9358cc5` — 2026-11-22 18:56:39
+
+*2 user turns. Tool output shortened; reasoning omitted.*
+
+**User:**
+Start step 2a.
+
+**Claude:**
+- 🔧 `Bash` — ls runs/part2
+
+  ```
+  agent.jsonl
+  no-tools.jsonl
+  one-search.jsonl
+  report.txt
+  run.json
+  ```
+
+- 🔧 `Skill` — homework-page:page
+
+  ```
+  Launching skill: homework-page:page
+  ```
+
+- 🔧 `Bash` — python3 .workbench/page.py 2a status "Full run finished; waiting for the student to ask for the report"
+
+  ```
+  The page now says: Full run finished; waiting for the student to ask for the report
+  ```
+
+In this step you find out how often each of the three versions matched the dataset's label on your 100 evaluation claims. Then you compare those numbers with your predictions from 1e. Your full run has finished, because `runs/part2/report.txt` exists. Next, open **Results** at the top of the homework page, choose "runs/part2" and read "Accuracy". When you are ready, ask me to paste the report into WRITEUP.md under 2a.
+
+**User:**
+paste the report into WRITEUP.md
+
+**Claude:**
+- 🔧 `Read` — /Users/tutran/Downloads/Fall2026/COMP440/Homeworks/comp440-hw3/runs/part2/report.txt
+
+  ```
+  1	Share of claims where the verdict matched the label:
+  2	
+  3	                          no-tools  one-search       agent
+  4	HoVer, 2 articles         19/34       16/34       22/34   
+  5	HoVer, 3 articles         22/33       16/33       25/33   
+  6	HoVer, 4 articles         19/33       17/33       22/33   
+  7	All                       60/100      49/100      69/100  
+  8	
+  9	HoVer, supported          14/50        0/50       25/50   
+  10	HoVer, not supported      46/50       49/50       44/50   
+  11	
+  12	Average per claim:
+  ... (8 more lines)
+  ```
+
+- 🔧 `Bash` — grep -n "2a" WRITEUP.md
+
+  ```
+  172:## 2a. Compare accuracy
+  ```
+
+- 🔧 `Read` — /Users/tutran/Downloads/Fall2026/COMP440/Homeworks/comp440-hw3/WRITEUP.md
+
+  ````
+  170	# Part 2: The agent against the baselines
+  171	
+  172	## 2a. Compare accuracy
+  173	
+  174	Ask Claude to paste the report of your full run, from `runs/part2/report.txt`, into the empty block below.
+  175	
+  176	```
+  177	```
+  178	
+  179	How do the results compare with your predictions? Where were you furthest off? Use the numbers from your run, by number of articles.
+  180	
+  181	>
+  ... (18 more lines)
+  ````
+
+- 🔧 `Edit` — /Users/tutran/Downloads/Fall2026/COMP440/Homeworks/comp440-hw3/WRITEUP.md
+
+  ```
+  The file /Users/tutran/Downloads/Fall2026/COMP440/Homeworks/comp440-hw3/WRITEUP.md has been updated successfully.
+  ```
+
+- 🔧 `Bash` — python3 .workbench/page.py 2a status "Report pasted; waiting for your answers in WRITEUP.md"
+
+  ```
+  The page now says: Report pasted; waiting for your answers in WRITEUP.md
+  ```
+
+I pasted this report from `runs/part2/report.txt` into the empty block under 2a in WRITEUP.md:
+
+```
+Share of claims where the verdict matched the label:
+
+                          no-tools  one-search       agent
+HoVer, 2 articles         19/34       16/34       22/34   
+HoVer, 3 articles         22/33       16/33       25/33   
+HoVer, 4 articles         19/33       17/33       22/33   
+All                       60/100      49/100      69/100  
+
+HoVer, supported          14/50        0/50       25/50   
+HoVer, not supported      46/50       49/50       44/50   
+
+Average per claim:
+
+                         lookups   seconds
+no-tools                     0.0       3.6
+one-search                   2.0       4.6
+agent                        4.9       8.7
+
+1 runs gave no verdict (for example a refusal, or out of lookups). They count as wrong. The results viewer lists them on this run's page, under "Claims with no verdict, or that stopped with an error".
+```
+
+Next, if you haven't yet, open **Results** at the top of the homework page, choose "runs/part2" and read "Accuracy". It shows the same counts as percentages. Then type your answers to the three questions under 2a in WRITEUP.md, in your editor. You don't need to reply here, but you can ask me how to read any row, or to show your predictions from 1e.
+
+<!-- end-session: a9358cc5-3fd9-4824-8f14-fc4d44675517 -->
+
+# 2b. Check the evidence yourself
+
+<!-- transcript-session: 386c683d-d3bd-4eab-9ef7-186ff9adc35d | 2026-11-22T19:29:20.281Z -->
+## Session `386c683d` — 2026-11-22 19:29:20
+
+*1 user turns. Tool output shortened; reasoning omitted.*
+
+**User:**
+Start step 2b.
+
+**Claude:**
+- 🔧 `Skill` — homework-page:page
+
+  ```
+  Launching skill: homework-page:page
+  ```
+
+- 🔧 `Bash` — python3 .workbench/page.py 2b status "Starting step 2b: checking the agent's quoted evidence"
+
+  ```
+  The page now says: Starting step 2b: checking the agent's quoted evidence
+  ```
+
+This step is 2b, "Check the evidence yourself." You find out whether the agent's quoted evidence really supports its verdicts, for five of its claims. It takes about 35 minutes.
+
+Start in the results viewer. Open "Results" at the top of the homework page, then "runs/part2". Click "Clear the filters", set "Verdict" in "The agent" box to "supported or refuted", and leave "Order" at "Order of the claims file". Rows 1 to 5 are your five claims. For each one, read its quoted evidence and fill in its row of the table under 2b in WRITEUP.md, in your editor.
+
+If you want to see a claim's text, verdict and quotes here, ask me. I can also show you a page as the agent read it.
+
+<!-- end-session: 386c683d-d3bd-4eab-9ef7-186ff9adc35d -->

@@ -174,19 +174,38 @@ How many lookups will the agent make per claim, on average? Why?
 Ask Claude to paste the report of your full run, from `runs/part2/report.txt`, into the empty block below.
 
 ```
+Share of claims where the verdict matched the label:
+
+                          no-tools  one-search       agent
+HoVer, 2 articles         19/34       16/34       22/34   
+HoVer, 3 articles         22/33       16/33       25/33   
+HoVer, 4 articles         19/33       17/33       22/33   
+All                       60/100      49/100      69/100  
+
+HoVer, supported          14/50        0/50       25/50   
+HoVer, not supported      46/50       49/50       44/50   
+
+Average per claim:
+
+                         lookups   seconds
+no-tools                     0.0       3.6
+one-search                   2.0       4.6
+agent                        4.9       8.7
+
+1 runs gave no verdict (for example a refusal, or out of lookups). They count as wrong. The results viewer lists them on this run's page, under "Claims with no verdict, or that stopped with an error".
 ```
 
 How do the results compare with your predictions? Where were you furthest off? Use the numbers from your run, by number of articles.
 
->
+> In general, my predictions got the pattern right for the agent. 3 articles claims did best while 2 and 4 articles claims were lower (but I underestimated both by about 15%). I was furthest off for no tools. I think this is because when it answers "doesn't say", that matches "not supported" and half of the claims are "not supported". For one search, I expected it to drop as claims needed more articles, but it stayed the same (or even rose slightly). However, it got 0 of 50 "supported" claims right, so it seems it never confirmed a claim and was only right when it said "not supported".
 
 Does the gap between the agent and the one-search baseline grow with the number of articles? What in the claims or the traces explains what you see?
 
->
+> No, the gap between the agent and the one search baseline doesn't grow with the number of articles. It is biggest at 3 articles and smallest at 4. The one search stays almost flat because it is only right when it says "not supported" and that works the same however many articles a claim needs. So the gap is the claims the agent can confirm that one search can't. The agent was best at 3 articles and dropped at 4. For 4 articles, it needs to do more lookups, so it is more likely to wander off or run out.
 
 The no-tools baseline read nothing. How did it do, and what does that tell you about these claims?
 
->
+> The no tools baseline did better than I expected. But most of that comes from "not supported" claims. I think it usually can't recall the facts and answers "doesn't say" which matches "not supported". This tells me that means the overall score may not be a great measure and the "supported" row may show more about which one can actually check claims.
 
 ## 2b. Check the evidence yourself
 
@@ -194,19 +213,19 @@ Fill in one row for each of the first five claims in your full run, in the order
 
 | # | Claim (first few words) | Agent's verdict | Matched the dataset's label? | Does the quoted evidence support that verdict? | Why or why not |
 |---|---|---|---|---|---|
-| 1 | | | | | |
-| 2 | | | | | |
-| 3 | | | | | |
-| 4 | | | | | |
-| 5 | | | | | |
+| 1 | Gregg Rolie and Rob Tyner, are not a... | refuted | no | yes | The claim requires neither of them to be a keyboardist, but Gregg Rolie's Wikipedia page says he is "an American keyboardist" so the claim is contradicted. |
+| 2 | Patrick Mercer was suspended in April 2014.... | refuted | no | no | Patrick Mercer's page says he resigned "when a Standards Committee report recommended suspending him". That doesn't contradict the claim so it should not be "refuted". However, I think whether the claim is supported depends on how it is read, it should be "supported" if we count "recommended suspending" as being suspended and "doesn't say" if we don't. |
+| 3 | Queen Medb of Connacht made her invasion in... | supported | yes | partly | The lookups confirm Queen Medb of Connacht made war against Ulster and Ulster Scots, a dialect of Scots, is spoken in parts of Ulster. |
+| 4 | John McTiernan is the director of 1999... | refuted | yes | yes | The lookups list the film's stars as "Pierce Brosnan, Rene Russo, and Denis Leary" and not "Vonda N. McIntyre". |
+| 5 | The Formula One World Champion is the... | refuted | no | no | The claim does not say which year's Formula One World Champion is and the agent assumed 1963. The 1963 Lombank Trophy page confirms that Graham Hill won and with one or two more lookups, it should have confirmed that he was a Formula One World Champion. |
 
 Of the five, how many matched the dataset's label, and for how many of those does the quoted evidence support the verdict?
 
->
+> 2 out of 5 matched the dataset's label and for 2 out of 5, the quoted evidence support the verdict.
 
 Is accuracy alone a good measure of this agent? Why or why not?
 
->
+> No, accuracy alone is not a good measure of this agent because it can be high without confirming any claims. For example, the one search baseline got 0 of 50 "supported" claims right and still got 49% accuracy. A match also does not always mean the agent was right for a good reason. The dataset only has "supported" and "not supported", so "refuted" and "doesn't say" both count as "not supported" and the agent can pick the wrong one and still be counted as correct. A mismatch also doesn't always mean the agent was completely wrong. For example, claim 2 depends on whether "recommended suspending" counts as being suspended.
 
 # Part 3 (extra credit): Why the agent fails, and one change
 
