@@ -1809,7 +1809,7 @@ If you want the trace entry behind any of my labels, ask and I'll quote it. Your
 <!-- transcript-session: c899d6fb-77ca-4415-a21d-7e3935ed3d6b | 2026-11-23T20:29:03.963Z -->
 ## Session `c899d6fb` — 2026-11-23 20:29:03
 
-*5 user turns. Tool output shortened; reasoning omitted.*
+*6 user turns. Tool output shortened; reasoning omitted.*
 
 **User:**
 Start step 3b.
@@ -2065,6 +2065,28 @@ uv run python evaluate.py data/eval.jsonl --methods agent --out runs/part3/after
 ```
 
 Its first line should say "Agent loop: yours (my_loop.py)". It takes about 6 minutes and ends with two tables. Then ask me again for the report.
+
+**User:**
+I updated the instructions.md
+
+**Claude:**
+- 🔧 `Bash` — git diff instructions.md; ls runs/part3
+
+  ```
+  diff --git a/instructions.md b/instructions.md
+  index bb7b803..61abdb1 100644
+  --- a/instructions.md
+  +++ b/instructions.md
+  @@ -4,13 +4,22 @@ You have four tools: search, read, wikidata and answer. Finish by calling answer
+   of "supported", "refuted" or "doesn't say", the sentences your verdict rests on, and a one-sentence
+   explanation.
+   
+  -First, break the claim into a list of facts to check. If a fact refers to someone or something without naming it, first find out exactly who or what it is. Then check the other facts about that on...
+  -
+  -You should use wikidata instead of reading a page when the fact is a single structured fact instead of a description, reason, etc.
+  -
+  ... (23 more lines)
+  ```
 
 <!-- end-session: c899d6fb-77ca-4415-a21d-7e3935ed3d6b -->
 
