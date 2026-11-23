@@ -13,7 +13,7 @@
     },
     {
       "text": "You have made one change",
-      "reached": false
+      "reached": true
     },
     {
       "text": "The agent's run on your evaluation claims, with your change, is finished",
@@ -89,6 +89,33 @@
         "Your loop counts tokens, and the check passes it"
       ],
       "time": "2026-11-23T14:34:00-06:00"
+    },
+    {
+      "kind": "asked",
+      "text": "I updated instructions",
+      "time": "2026-11-23T14:56:11-06:00"
+    },
+    {
+      "kind": "ran",
+      "text": "Looked at a git diff",
+      "status": "ok",
+      "file": null,
+      "reached": [
+        "You have made one change"
+      ],
+      "time": "2026-11-23T14:56:12-06:00"
+    },
+    {
+      "kind": "asked",
+      "text": "show the report",
+      "time": "2026-11-23T14:56:28-06:00"
+    },
+    {
+      "kind": "ran",
+      "text": "Looked at runs/part3/after/report.txt",
+      "status": "error",
+      "file": null,
+      "time": "2026-11-23T14:56:29-06:00"
     }
   ],
   "told_the_page": [
@@ -107,7 +134,18 @@
       "time": "2026-11-23T14:34:02-06:00",
       "kind": "status",
       "text": "Waiting for you to choose one change"
+    },
+    {
+      "time": "2026-11-23T14:56:14-06:00",
+      "kind": "checkpoint",
+      "n": 2,
+      "text": "You have made one change"
+    },
+    {
+      "time": "2026-11-23T14:56:14-06:00",
+      "kind": "status",
+      "text": "Waiting for your run in your own terminal tab"
     }
   ],
-  "turns": 3
+  "turns": 5
 }

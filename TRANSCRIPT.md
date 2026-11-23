@@ -1809,7 +1809,7 @@ If you want the trace entry behind any of my labels, ask and I'll quote it. Your
 <!-- transcript-session: c899d6fb-77ca-4415-a21d-7e3935ed3d6b | 2026-11-23T20:29:03.963Z -->
 ## Session `c899d6fb` — 2026-11-23 20:29:03
 
-*3 user turns. Tool output shortened; reasoning omitted.*
+*5 user turns. Tool output shortened; reasoning omitted.*
 
 **User:**
 Start step 3b.
@@ -1985,6 +1985,62 @@ Every rule passes. From now on your copy's agent runs on your loop (my_loop.py).
 The line "Count the tokens (extra credit)" says `ok`, so your loop now counts tokens. I've ticked that task on the page.
 
 Next, decide on **one** change aimed at the failure you found most common in 3a. You can change `instructions.md`, a tool in `wiki.py`, the 12-lookup limit in `agent.py`, or your loop, through your outline. Make the change in your editor, or tell me exactly what to change. I can also explain what any piece of code does, or show you where something lives.
+
+**User:**
+I updated instructions
+
+**Claude:**
+- 🔧 `Bash` — git diff instructions.md
+
+  ```
+  diff --git a/instructions.md b/instructions.md
+  index 0ef6583..bb7b803 100644
+  --- a/instructions.md
+  +++ b/instructions.md
+  @@ -4,7 +4,7 @@ You have four tools: search, read, wikidata and answer. Finish by calling answer
+   of "supported", "refuted" or "doesn't say", the sentences your verdict rests on, and a one-sentence
+   explanation.
+   
+  -First, break the claim into a list of facts to check. If a fact refers to someone or something without naming it, first find out exactly who or what it is. Then check the other facts about that one.
+  +First, break the claim into a list of facts to check. If a fact refers to someone or something without naming it, first find out exactly who or what it is. Then check the other facts about that on...
+   
+   You should use wikidata instead of reading a page when the fact is a single structured fact instead of a description, reason, etc.
+  ```
+
+- 🔧 `Bash` — python3 .workbench/page.py 3b done 2; python3 .workbench/page.py 3b status "Waiting for your run in your own terminal tab"
+
+  ```
+  The page now shows “You have made one change” as reached.
+  The page now says: Waiting for your run in your own terminal tab
+  ```
+
+Here is your change, from `git diff`:
+
+```diff
+-First, break the claim into a list of facts to check. If a fact refers to someone or something without naming it, first find out exactly who or what it is. Then check the other facts about that one.
++First, break the claim into a list of facts to check. If a fact refers to someone or something without naming it, first find out exactly who or what it is. Then check the other facts about that one. For each fact, search for its subject and read its article.
+```
+
+I can see the change, so I've ticked that task on the page.
+
+Next, start the run yourself. Open a terminal tab of your own, go to the homework's folder, and run:
+
+```
+uv run python evaluate.py data/eval.jsonl --methods agent --out runs/part3/after
+```
+
+It takes about 6 minutes and costs about 21 cents on your key. Your change asks for more reading, so it may take longer and cost more. Keep that tab open and your laptop awake, and don't change `instructions.md` or `my_loop.py` until the run ends with two tables. When it ends, ask me to show you the report if you want it here.
+
+**User:**
+show the report
+
+**Claude:**
+- 🔧 `Bash` — cat runs/part3/after/report.txt
+
+  ```
+  (error) Exit code 1
+  cat: runs/part3/after/report.txt: No such file or directory
+  ```
 
 <!-- end-session: c899d6fb-77ca-4415-a21d-7e3935ed3d6b -->
 
