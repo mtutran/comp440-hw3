@@ -2,14 +2,16 @@ Share of claims where the verdict matched the label:
 
                              agent
 HoVer, 2 articles         20/34   
-HoVer, 3 articles         24/33   
-HoVer, 4 articles         21/33   
-All                       65/100  
+HoVer, 3 articles         23/33   
+HoVer, 4 articles         20/33   
+All                       63/100  
 
-HoVer, supported          23/50   
-HoVer, not supported      42/50   
+HoVer, supported          22/50   
+HoVer, not supported      41/50   
 
 Average per claim:
 
                          lookups   seconds    tokens      cost
-agent                        5.2       7.2     13356    0.0019
+agent                        5.5       7.6     14467    0.0020
+
+3 runs gave no verdict (for example a refusal, or out of lookups). They count as wrong. The results viewer lists them on this run's page, under "Claims with no verdict, or that stopped with an error".
