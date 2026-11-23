@@ -28,7 +28,7 @@
   "answers": [
     {
       "question": "Write your outline of the loop in the code block: what it remembers, what it repeats, and every way it stops.",
-      "answer": "history = [claim]\nnum_lookups = 0\n\nRepeat:\n    step = call model with history\n    append step to history\n\n    If step is an answer:\n        return the answer\n\n    If num_lookups == 12:\n        return 'undecided'\n\n    results = []\n    For each lookup request in step (in order):\n        If num_lookups == 12:\n            result = \"undecided\"\n        Else:\n            num_lookups += 1\n            result = perform lookup\n        append (request, result) to results\n    \n    append results to history",
+      "answer": "history = [claim]\nnum_lookups = 0\ntokens = {input: 0, output: 0}\n\nRepeat:\n    step = call model with history\n    tokens.input  += step's input tokens\n    tokens.output += step's output tokens\n    append step to history\n\n    If step is an answer:\n        return (answer, tokens)\n\n    If num_lookups == 12:\n        return ('undecided', tokens)\n\n    results = []\n    For each lookup request in step:\n        If num_lookups == 12:\n            result = \"undecided\"\n        Else:\n            num_lookups += 1\n            result = perform lookup\n        append (request, result) to results\n    \n    append results to history",
       "written_by": "the student"
     },
     {

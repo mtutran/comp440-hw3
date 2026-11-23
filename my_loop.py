@@ -50,24 +50,33 @@ def run_agent(claim, client=None, max_steps=MAX_STEPS, lookup=run_tool):
     # num_lookups = 0
     #   (this is `steps`, set up above as 0)
 
+    # tokens = {input: 0, output: 0}
+    tokens = {"input": 0, "output": 0}
+
     # Repeat:
     while True:
 
         # step = call model with history
         reply = talk.ask()
 
+        # tokens.input  += step's input tokens
+        tokens["input"] += reply.usage.input_tokens
+
+        # tokens.output += step's output tokens
+        tokens["output"] += reply.usage.output_tokens
+
         # append step to history
         #   (talk.ask() already adds the reply to the history)
 
         # If step is an answer:
         if reply.answer is not None:
-            # return the answer
-            return talk.accept(reply.answer, steps)
+            # return (answer, tokens)
+            return talk.accept(reply.answer, steps, tokens)
 
         # If num_lookups == 12:
         if steps == max_steps:
-            # return 'undecided'
-            return talk.stop(RAN_OUT, steps)
+            # return ('undecided', tokens)
+            return talk.stop(RAN_OUT, steps, tokens)
 
         # results = []
         #   (the parts keep this list: each talk.give() adds to it, and

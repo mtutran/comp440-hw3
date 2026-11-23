@@ -73,19 +73,22 @@ Write your outline of the loop in the code block: what it remembers, what it rep
 ```
 history = [claim]
 num_lookups = 0
+tokens = {input: 0, output: 0}
 
 Repeat:
     step = call model with history
+    tokens.input  += step's input tokens
+    tokens.output += step's output tokens
     append step to history
 
     If step is an answer:
-        return the answer
+        return (answer, tokens)
 
     If num_lookups == 12:
-        return 'undecided'
+        return ('undecided', tokens)
 
     results = []
-    For each lookup request in step (in order):
+    For each lookup request in step:
         If num_lookups == 12:
             result = "undecided"
         Else:

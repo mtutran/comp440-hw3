@@ -1804,6 +1804,190 @@ If you want the trace entry behind any of my labels, ask and I'll quote it. Your
 
 <!-- end-session: 680e00c5-cabc-4126-b7ec-40654de95ac2 -->
 
+# 3b. Make one change
+
+<!-- transcript-session: c899d6fb-77ca-4415-a21d-7e3935ed3d6b | 2026-11-23T20:29:03.963Z -->
+## Session `c899d6fb` — 2026-11-23 20:29:03
+
+*3 user turns. Tool output shortened; reasoning omitted.*
+
+**User:**
+Start step 3b.
+
+**Claude:**
+- 🔧 `Skill` — homework-page:page
+
+  ```
+  Launching skill: homework-page:page
+  ```
+
+- 🔧 `Bash` — python3 .workbench/page.py 3b status "Starting step 3b: make one change"
+
+  ```
+  The page now says: Starting step 3b: make one change
+  ```
+
+In this step you make one change aimed at the failure you found most common in 3a, and then you see whether it fixes that failure on your evaluation claims. Before that, your loop has to count tokens, so the run after your change shows what it cost. A token is the unit the API counts text in and charges by, about three quarters of a word.
+
+The first task happens in your editor. In `WRITEUP.md`, under 1a, add the token count to your outline. Say that the loop remembers how many input and output tokens the model's replies have used, starting at none. Say that it adds each reply's tokens when the reply comes back. And say that every time the loop stops, it returns the count, along with the answer or with no verdict. When you're ready, ask me to translate your outline again.
+
+**User:**
+translate again
+
+**Claude:**
+- 🔧 `Bash` — grep -n "^#" WRITEUP.md | head -40; echo ---; cat my_loop.py
+
+  ```
+  1:# COMP 440 HW3 write-up
+  10:## Learning goals
+  21:# Part 0: Set up and check one claim
+  23:## 0a. Get your copy running
+  27:## 0b. Ask the model to assess a claim without tools
+  37:## 0c. Give it one search
+  49:## 0d. Run the agent and read its trace
+  63:# Part 1: How the agent works
+  65:## 1a. Design the loop
+  112:## 1b. Be the agent
+  137:## 1c. Watch the agent work
+  151:## 1d. Write the agent's instructions
+  ... (104 more lines)
+  ```
+
+- 🔧 `Read` — /Users/tutran/Downloads/Fall2026/COMP440/Homeworks/comp440-hw3/WRITEUP.md
+
+  ````
+  65	## 1a. Design the loop
+  66	
+  67	Your loop should repeatedly call the model with the message history so far, and ask for its next step. It should check whether the model has given an answer yet. If not, it should make the looku...
+  68	
+  69	The Background and an example outline are under 1a on the homework page, and in [instructions/part1.md](instructions/part1.md#1a-design-the-loop).
+  70	
+  71	Write your outline of the loop in the code block: what it remembers, what it repeats, and every way it stops.
+  72	
+  73	```
+  74	history = [claim]
+  75	num_lookups = 0
+  76	tokens = {input: 0, output: 0}
+  ... (35 more lines)
+  ````
+
+- 🔧 `Edit` — /Users/tutran/Downloads/Fall2026/COMP440/Homeworks/comp440-hw3/my_loop.py
+
+  ```
+  The file /Users/tutran/Downloads/Fall2026/COMP440/Homeworks/comp440-hw3/my_loop.py has been updated successfully.
+  ```
+
+- 🔧 `Edit` — /Users/tutran/Downloads/Fall2026/COMP440/Homeworks/comp440-hw3/my_loop.py
+
+  ```
+  The file /Users/tutran/Downloads/Fall2026/COMP440/Homeworks/comp440-hw3/my_loop.py has been updated successfully.
+  ```
+
+- 🔧 `Bash` — git diff my_loop.py
+
+  ```
+  diff --git a/my_loop.py b/my_loop.py
+  index 297ccd9..89743c3 100644
+  --- a/my_loop.py
+  +++ b/my_loop.py
+  @@ -50,24 +50,33 @@ def run_agent(claim, client=None, max_steps=MAX_STEPS, lookup=run_tool):
+       # num_lookups = 0
+       #   (this is `steps`, set up above as 0)
+   
+  +    # tokens = {input: 0, output: 0}
+  +    tokens = {"input": 0, "output": 0}
+  +
+       # Repeat:
+  ... (30 more lines)
+  ```
+
+I translated the new lines of your outline into `my_loop.py`. Here is the change:
+
+```diff
+@@ -50,24 +50,33 @@ def run_agent(claim, client=None, max_steps=MAX_STEPS, lookup=run_tool):
+     # num_lookups = 0
+     #   (this is `steps`, set up above as 0)
+ 
++    # tokens = {input: 0, output: 0}
++    tokens = {"input": 0, "output": 0}
++
+     # Repeat:
+     while True:
+ 
+         # step = call model with history
+         reply = talk.ask()
+ 
++        # tokens.input  += step's input tokens
++        tokens["input"] += reply.usage.input_tokens
++
++        # tokens.output += step's output tokens
++        tokens["output"] += reply.usage.output_tokens
++
+         # append step to history
+         #   (talk.ask() already adds the reply to the history)
+ 
+         # If step is an answer:
+         if reply.answer is not None:
+-            # return the answer
+-            return talk.accept(reply.answer, steps)
++            # return (answer, tokens)
++            return talk.accept(reply.answer, steps, tokens)
+ 
+         # If num_lookups == 12:
+         if steps == max_steps:
+-            # return 'undecided'
+-            return talk.stop(RAN_OUT, steps)
++            # return ('undecided', tokens)
++            return talk.stop(RAN_OUT, steps, tokens)
+```
+
+Each new line of your outline is now a comment with its Python under it. The rest of the loop is the same as before.
+
+Next, ask me to run the check. The line "Count the tokens (extra credit)" needs to say `ok`.
+
+**User:**
+run the check
+
+**Claude:**
+- 🔧 `Bash` — uv run python check_loop.py
+
+  ```
+  ok         1. Ask the model
+  ok         2. Make its lookups
+  ok         3. Stop with the answer
+  ok         4. Stop at the limit
+  ok         5. Count the lookups
+  ok         Count the tokens (extra credit)
+  
+  Every rule passes. From now on your copy's agent runs on your loop (my_loop.py).
+  ```
+
+- 🔧 `Bash` — python3 .workbench/page.py 3b done 1; python3 .workbench/page.py 3b status "Waiting for you to choose one change"
+
+  ```
+  The page now shows “Your loop counts tokens, and the check passes it” as reached.
+  The page now says: Waiting for you to choose one change
+  ```
+
+Here is what the check printed:
+
+```
+ok         1. Ask the model
+ok         2. Make its lookups
+ok         3. Stop with the answer
+ok         4. Stop at the limit
+ok         5. Count the lookups
+ok         Count the tokens (extra credit)
+
+Every rule passes. From now on your copy's agent runs on your loop (my_loop.py).
+```
+
+The line "Count the tokens (extra credit)" says `ok`, so your loop now counts tokens. I've ticked that task on the page.
+
+Next, decide on **one** change aimed at the failure you found most common in 3a. You can change `instructions.md`, a tool in `wiki.py`, the 12-lookup limit in `agent.py`, or your loop, through your outline. Make the change in your editor, or tell me exactly what to change. I can also explain what any piece of code does, or show you where something lives.
+
+<!-- end-session: c899d6fb-77ca-4415-a21d-7e3935ed3d6b -->
+
 # Other Claude sessions in this folder
 
 <!-- transcript-session: 04b89aa9-2ae5-4d99-8432-bdbb8b69e11b | 2026-11-23T16:16:31.024Z -->
