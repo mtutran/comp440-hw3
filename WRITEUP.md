@@ -235,14 +235,14 @@ Fill in one row for each of the first eight failures in your full run, rows 1 to
 
 | Row | Claim (first few words) | Your label | The entry of the trace that shows it | Is the dataset's label right? (yes, no or can't tell) | Claude's label |
 |---|---|---|---|---|---|
-| 1 | | | | | |
-| 2 | | | | | |
-| 3 | | | | | |
-| 4 | | | | | |
-| 5 | | | | | |
-| 6 | | | | | |
-| 7 | | | | | |
-| 8 | | | | | |
+| 1 | Gregg Rolie and Rob Tyner, are not a... | the dataset's label is wrong | "Gregg Alan Rolie (born June 17, 1947) is an American keyboardist, singer and songwriter." | no | refuted |
+| 2 | Patrick Mercer was suspended in April 2014.... | misread | "He was elected as a Conservative in the 2001 general election, until resigning the party's parliamentary whip in May 2013 following questions surrounding paid advocacy, and was an Independent MP representing the constituency of Newark in Parliament until his resignation at the end of April 2014 when a Standards Committee report recommended suspending him for six months for "sustained and pervasive breach of the house's rules"." | can't tell | refuted |
+| 3 | This man directed the film Eve's Leaves. He is... | misread | "Demy is best known for the two musicals he directed in the mid-1960s: The Umbrellas of Cherbourg (1964) and The Young Girls of Rochefort (1967).", "His movies include Hearts in Dixie (1929) with Stepin Fetchit, The Woman Accused (1933) with Cary Grant, The Texans (1938) with Joan Bennett, Randolph Scott and Walter Brennan, and Geronimo (1939) with Preston Foster, Ellen Drew, Andy Devine, and Chief Thundercloud." | yes | doesn't say |
+| 4 | Spawn, a fictional character who Mustafa... | Wikipedia is missing or wrong | no information about Mustafa's interest in Spawn | can't tell | doesn't say |
+| 5 | The Formula One World Champion is the... | misunderstand | The race was run over 50 laps of the circuit, and was won by British driver Graham Hill in a BRM P57. | yes | refuted |
+| 6 | No. 11 Squadron RAAF was based at RAAF Base... | the dataset's label is wrong | "No. 11 Squadron is a Royal Australian Air Force (RAAF) maritime patrol squadron based at RAAF Base Edinburgh, South Australia.", "RAAF Base Edinburgh (ICAO: YPED) is a Royal Australian Air Force (RAAF) military airbase located in Edinburgh, approximately 28 km (17 mi) north of Adelaide, South Australia, Australia and forms part of the Edinburgh Defence Precinct." | no | refuted |
+| 7 | CamCutter was first revealed in Paradise and... | stopped too early | First revealed in 1995 at the National Association of Broadcasters convention in Las Vegas, it used a camera mechanism by Ikegami and a special FieldPack unit instead of a tape transport unit. | yes | doesn't say |
+| 8 | There were 331 episodes of the TV series... | misunderstand | "ER is an American medical drama television series created by Michael Crichton that aired on NBC from September 19, 1994, to April 2, 2009, with a total of 331 episodes spanning 15 seasons.", "Nurse Carol Hathaway, played by Julianna Margulies, who attempts suicide in the original pilot script, was made into a regular cast member." | yes | refuted |
 
 Where did you and Claude disagree, and who do you think is right?
 

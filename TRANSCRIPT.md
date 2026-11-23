@@ -1518,3 +1518,117 @@ If you meant to leave, type `/exit` at the prompt. Your work in WRITEUP.md stays
 If you meant something else, tell me what you need.
 
 <!-- end-session: 386c683d-d3bd-4eab-9ef7-186ff9adc35d -->
+
+# 3a. Sort the failures
+
+<!-- transcript-session: 680e00c5-cabc-4126-b7ec-40654de95ac2 | 2026-11-23T15:26:50.693Z -->
+## Session `680e00c5` — 2026-11-23 15:26:50
+
+*3 user turns. Tool output shortened; reasoning omitted.*
+
+**User:**
+Start step 3a. Read .workbench/3a.md and follow it from now on, in place of your instructions for any other step.
+
+**Claude:**
+- 🔧 `Read` — /Users/tutran/Downloads/Fall2026/COMP440/Homeworks/comp440-hw3/.workbench/3a.md
+
+  ```
+  1	# You are this student's tutor for HW3
+  2	
+  3	The student is taking COMP 440, Collective Intelligence, at Macalester College. They are a
+  4	third-year computer science or data science major. In HW3 they study a small AI agent that checks
+  5	claims against Wikipedia: a loop in which an LLM, Claude Haiku, looks things up and decides whether
+  6	a claim is true. The claims they check come with the homework and are the same for every student.
+  7	
+  8	These are the homework's learning goals, as the student reads them. In this homework you will:
+  9	
+  10	1. Understand what makes a program an *agent*. You will study a language model that picks the
+  11	   next Wikipedia search query, reads the page that comes back, and decides when to stop.
+  12	2. Gain hands-on experience with the loop around the model by writing it yourself: its tools, its
+  ... (427 more lines)
+  ```
+
+You're on step 3a, "Sort the failures". In it you find out why the agent fails on your evaluation claims. This step takes about 45 minutes.
+
+The first task is yours, in your editor. In the results viewer, open runs/part2 and read the traces of the first eight failures. Then give each one a label in the table under 3a in WRITEUP.md, with the entry of the trace that shows it and whether the dataset's label is right. Don't tell me your labels.
+
+When your labels are in the table, ask me for mine. I'll give my labels without seeing yours.
+
+**User:**
+so I label them as refuted, supported or doesnt say based on the agent traces
+
+**Claude:**
+No. A verdict (*supported*, *refuted*, *doesn't say*) is what the agent gives a claim. In this step you give each failure a label for *why* the agent got it wrong. Here are the labels, word for word from the step's page:
+
+- *wrong page*: The agent never found the page that settles the claim.
+- *stopped too early*: The agent answered before checking every piece of the claim.
+- *misread*: The agent read the right page and drew the wrong conclusion.
+- *forced a verdict*: The agent answered *supported* or *refuted* when Wikipedia does not settle the claim.
+- *Wikipedia is missing or wrong*: The agent did what it should, and Wikipedia lacks the fact or has it wrong.
+- *the dataset's label is wrong*: The agent's verdict is right, and the dataset's label is not.
+- If none of these fits, give a label of your own.
+
+Each row also needs the entry of the trace that shows it (its number and a few words of what it shows). It also needs your answer to "Is the dataset's label right?": yes, no or can't tell. If you answer no, the label should be *the dataset's label is wrong*.
+
+Read the traces in the results viewer, then fill in the table under 3a in WRITEUP.md, in your editor.
+
+**User:**
+I'm done
+
+**Claude:**
+- 🔧 `Skill` — homework-page:page
+
+  ```
+  Launching skill: homework-page:page
+  ```
+
+- 🔧 `Bash` — grep -n -o '"correct": false' runs/part2/agent.jsonl
+
+  ```
+  1:"correct": false
+  2:"correct": false
+  3:"correct": false
+  6:"correct": false
+  7:"correct": false
+  9:"correct": false
+  11:"correct": false
+  14:"correct": false
+  16:"correct": false
+  20:"correct": false
+  22:"correct": false
+  23:"correct": false
+  ... (19 more lines)
+  ```
+
+- 🔧 `Bash` — python3 .workbench/page.py 3a status "Reading the eight failure traces to give Claude's labels"
+
+  ```
+  The page now says: Reading the eight failure traces to give Claude's labels
+  ```
+
+- 🔧 `Read` — /Users/tutran/Downloads/Fall2026/COMP440/Homeworks/comp440-hw3/runs/part2/agent.jsonl
+
+  ```
+  1	{"claim": "Gregg Rolie and Rob Tyner, are not a keyboardist.", "verdict": "refuted", "evidence": ["Gregg Alan Rolie (born June 17, 1947) is an American keyboardist, singer and songwriter.", "Robe...
+  2	{"claim": "Patrick Mercer was suspended in April 2014. The seat for the town was won by the owner of Eye Manor. Fiona Jones was elected MP of this town in 1997.", "verdict": "refuted", "evidence"...
+  3	{"claim": "This man directed the film Eve's Leaves. He is not noted for directing more musicals than the director of the 1980 film Break of Day.", "verdict": "doesn't say", "evidence": ["Eve's Le...
+  ```
+
+<!-- end-session: 680e00c5-cabc-4126-b7ec-40654de95ac2 -->
+
+# Other Claude sessions in this folder
+
+<!-- transcript-session: 04b89aa9-2ae5-4d99-8432-bdbb8b69e11b | 2026-11-23T16:16:31.024Z -->
+## Session `04b89aa9` — 2026-11-23 16:16:31
+
+*1 user turns. Tool output shortened; reasoning omitted.*
+
+**User:**
+claude --resume 680e00c5-cabc-4126-b7ec-40654de95ac2 --model claude-opus-5-5 --effort medium --setting-sources user --settings .workbench/3a.json --append-system-prompt-file .workbench/3a.md --plugin-dir .workbench/plugin
+
+**Claude:**
+This homework is done on the homework page. Run `uv run python -m workbench` in a terminal in this folder, and leave that terminal open while you work.
+
+The line you pasted is a command to start a Claude session, so it does not work in this chat. Paste it at the prompt of a new terminal in this folder. That resumes the step 3a session the homework page set up. You can also go back to the homework page and copy step 3a's prompt or command from there.
+
+<!-- end-session: 04b89aa9-2ae5-4d99-8432-bdbb8b69e11b -->
