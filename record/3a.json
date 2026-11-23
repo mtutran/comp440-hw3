@@ -5,7 +5,7 @@
   "conversations": [
     "680e00c5-cabc-4126-b7ec-40654de95ac2"
   ],
-  "complete": false,
+  "complete": true,
   "checkpoints": [
     {
       "text": "You have labeled each of the eight failures in your table, with the entry of the trace that shows it and whether the dataset's label is right",
@@ -21,7 +21,7 @@
     },
     {
       "text": "Your answers are in WRITEUP.md",
-      "reached": false
+      "reached": true
     }
   ],
   "answers": [
@@ -37,8 +37,8 @@
     },
     {
       "question": "Which kind of failure was most common? If no kind repeats, say which failure you will aim at in 3b, and why.",
-      "answer": "",
-      "written_by": null
+      "answer": "Misread/misunderstand is most common.",
+      "written_by": "the student"
     }
   ],
   "record": [
@@ -151,6 +151,9 @@
     {
       "kind": "asked",
       "text": "give me mine next to yours",
+      "reached": [
+        "Your answers are in WRITEUP.md"
+      ],
       "time": "2026-11-23T10:19:49-06:00"
     }
   ],
