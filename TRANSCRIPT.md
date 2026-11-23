@@ -1809,7 +1809,7 @@ If you want the trace entry behind any of my labels, ask and I'll quote it. Your
 <!-- transcript-session: c899d6fb-77ca-4415-a21d-7e3935ed3d6b | 2026-11-23T20:29:03.963Z -->
 ## Session `c899d6fb` — 2026-11-23 20:29:03
 
-*9 user turns. Tool output shortened; reasoning omitted.*
+*10 user turns. Tool output shortened; reasoning omitted.*
 
 **User:**
 Start step 3b.
@@ -2290,6 +2290,16 @@ agent                        5.6      10.8     14751    0.0020
 The report is saved in `runs/part3/after/report.txt`, and it matches the tables above. The "cost" column is the average per claim, in dollars.
 
 Next, compare the runs. Open **Results** at the top of the homework page, click "Compare two runs", then "Step 3b: runs/part2 with runs/part3/after". In that comparison, A is `runs/part2` and B is this run. Read "Accuracy" first. Then, under "Claims that changed", set "Change" to each of its two settings in turn. "Open A and B" shows one claim's two traces side by side. After that, type your answers to the three 3b questions in `WRITEUP.md`, in your editor. You don't need to reply here.
+
+**User:**
+oops I forgot to clean the instructions.md
+
+**Claude:**
+The run just used `instructions.md` exactly as it is now, with your new edit and the older lines still in it. So the results in `runs/part3/after` come from that version.
+
+If you change `instructions.md` now, those saved results will no longer match your instructions. Running the command again without `--fresh` wouldn't run anything new. It would print the same tables, plus a note that they came from an earlier version of the agent. To get results from a cleaned-up version, you'd need another run with `--fresh`. That takes about 6 minutes and costs about 21 cents again.
+
+If you want to clean it up, make the edit in your editor, or tell me the exact words to change. Then decide whether to run again. If you keep the run you have, your write-up should describe the instructions as they were for this run.
 
 <!-- end-session: c899d6fb-77ca-4415-a21d-7e3935ed3d6b -->
 
