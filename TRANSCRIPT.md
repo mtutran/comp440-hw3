@@ -2042,6 +2042,30 @@ show the report
   cat: runs/part3/after/report.txt: No such file or directory
   ```
 
+- 🔧 `Bash` — ls runs/part3/after
+
+  ```
+  (error) Exit code 1
+  ls: runs/part3/after: No such file or directory
+  ```
+
+There's no report yet. `runs/part3/after/report.txt` doesn't exist, and neither does the folder `runs/part3/after`:
+
+```
+cat: runs/part3/after/report.txt: No such file or directory
+ls: runs/part3/after: No such file or directory
+```
+
+That means the run hasn't started in this homework's folder. Either it hasn't been started yet, or it was started from a different folder.
+
+In a terminal tab of your own, go to the homework's folder (`comp440-hw3`) and run:
+
+```
+uv run python evaluate.py data/eval.jsonl --methods agent --out runs/part3/after
+```
+
+Its first line should say "Agent loop: yours (my_loop.py)". It takes about 6 minutes and ends with two tables. Then ask me again for the report.
+
 <!-- end-session: c899d6fb-77ca-4415-a21d-7e3935ed3d6b -->
 
 # Other Claude sessions in this folder
