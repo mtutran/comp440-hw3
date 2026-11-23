@@ -1485,7 +1485,7 @@ Next, if you haven't yet, open **Results** at the top of the homework page, choo
 <!-- transcript-session: 386c683d-d3bd-4eab-9ef7-186ff9adc35d | 2026-11-22T19:29:20.281Z -->
 ## Session `386c683d` — 2026-11-22 19:29:20
 
-*1 user turns. Tool output shortened; reasoning omitted.*
+*2 user turns. Tool output shortened; reasoning omitted.*
 
 **User:**
 Start step 2b.
@@ -1508,5 +1508,13 @@ This step is 2b, "Check the evidence yourself." You find out whether the agent's
 Start in the results viewer. Open "Results" at the top of the homework page, then "runs/part2". Click "Clear the filters", set "Verdict" in "The agent" box to "supported or refuted", and leave "Order" at "Order of the claims file". Rows 1 to 5 are your five claims. For each one, read its quoted evidence and fill in its row of the table under 2b in WRITEUP.md, in your editor.
 
 If you want to see a claim's text, verdict and quotes here, ask me. I can also show you a page as the agent read it.
+
+**User:**
+exi
+
+**Claude:**
+If you meant to leave, type `/exit` at the prompt. Your work in WRITEUP.md stays where it is, and you can start step 2b again later from the homework page.
+
+If you meant something else, tell me what you need.
 
 <!-- end-session: 386c683d-d3bd-4eab-9ef7-186ff9adc35d -->
